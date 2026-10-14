@@ -6,6 +6,9 @@ import Testimonials from "@/components/Testimonials";
 import WorksWith from "@/components/WorksWith";
 import Capabilities from "@/components/Capabilities";
 import Performance from "@/components/Performance";
+import Stats from "@/components/Stats";
+import Team from "@/components/Team";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,7 +22,10 @@ export default function Home() {
         <WorksWith />
         <Capabilities />
         <Performance />
+        <Stats />
+        <Team />
       </main>
+      <Footer />
     </>
   );
 }
