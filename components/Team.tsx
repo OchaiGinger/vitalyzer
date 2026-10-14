@@ -9,10 +9,11 @@ import { useEffect, useRef, useState } from "react";
 type Member = { name: string; role: string; photo: string };
 
 const TEAM: Member[] = [
-  { name: "Amara Okafor", role: "Founder", photo: "/team/member-1.jpg" },
-  { name: "Daniel Reyes", role: "Clinical lead", photo: "/team/member-2.jpg" },
-  { name: "Priya Nair", role: "Data science", photo: "/team/member-3.jpg" },
-  { name: "Tomas Berg", role: "Engineering", photo: "/team/member-4.jpg" },
+  { name: "Emmanuel Ogbodo", role: "Founder", photo: "/team/member-1.png" },
+  { name: "Chukwuemeka Obi", role: "CTO & Lead Developer", photo: "/team/member-2.png" },
+  { name: "Kwame Mensa", role: "Machine Learning Engineer", photo: "/team/member-3.png" },
+  { name: "Aminala Diallo", role: "Head of Product and Design ", photo: "/team/member-4.png" },
+  { name: "Dr. Folake Adyinka", role: "Clinical partnerships & Compliance Lead", photo: "/team/member-5.png" },
 ];
 
 /* ---------- Pixelate + dither helpers ---------- */
