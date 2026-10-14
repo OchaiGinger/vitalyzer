@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 // Placeholder video. Replace with your own mp4/webm link later.
 // If it fails to load, the grid background behind it still shows.
 // const HERO_VIDEO_SRC ="Https://cdn.prod.website-files.com/6a6f262be15ed44701a53fe8%2F6a71e76881c6f6c3ef0c9987_hero-bg_mp4.mp4";
-const HERO_VIDEO_SRC =
-  "https://cdn.pixabay.com/video/2017/03/20/8449-209292163_large.mp4";
-  // "https://cdn.pixabay.com/video/2022/09/08/130591-747868243_large.mp4";
-//   "https://cdn.pixabay.com/video/2024/06/06/215535_large.mp4f";
+const HERO_VIDEOS = [
+  "https://cdn.pixabay.com/video/2022/09/08/130591-747868243_large.mp4",
+  "https://cdn.pixabay.com/video/2024/06/06/215535_large.mp4",
+];
 
 const gridStyle: React.CSSProperties = {
   backgroundImage: [
@@ -36,6 +36,7 @@ export default function Hero() {
   const userPaused = useRef(false);
   const [paused, setPaused] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const toggle = () => {
     const v = videoRef.current;
@@ -49,6 +50,12 @@ export default function Hero() {
       v.pause();
       setPaused(true);
     }
+  };
+
+  // Move to the next video when the current one finishes, then loop back.
+  const onEnded = () => {
+    if (userPaused.current) return;
+    setIndex((i) => (i + 1) % HERO_VIDEOS.length);
   };
 
   // Stop decoding the video while the hero is off-screen. This frees the GPU
@@ -67,7 +74,7 @@ export default function Hero() {
     });
     io.observe(section);
     return () => io.disconnect();
-  }, [videoFailed]);
+  }, [videoFailed, index]);
 
   return (
     <section ref={sectionRef} className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden">
@@ -77,12 +84,14 @@ export default function Hero() {
         {!videoFailed && (
           <video
             ref={videoRef}
-            src={HERO_VIDEO_SRC}
+            key={HERO_VIDEOS[index]}
+            src={HERO_VIDEOS[index]}
             autoPlay
             muted
-            loop
+            loop={false}
             playsInline
             preload="metadata"
+            onEnded={onEnded}
             onError={() => setVideoFailed(true)}
             className="absolute inset-0 size-full transform-gpu object-cover"
           />

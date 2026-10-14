@@ -5,6 +5,7 @@ import WhyVitalyzer from "@/components/WhyVitalyzer";
 import Testimonials from "@/components/Testimonials";
 import WorksWith from "@/components/WorksWith";
 import Capabilities from "@/components/Capabilities";
+import Performance from "@/components/Performance";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <Testimonials />
         <WorksWith />
         <Capabilities />
+        <Performance />
       </main>
     </>
   );
