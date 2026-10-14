@@ -15,6 +15,9 @@ export default function SmoothScroll() {
       anchors: true, // #hash links glide instead of jumping
     });
 
+    // Exposed so other components can scroll through Lenis (e.g. Capabilities list)
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -24,6 +27,7 @@ export default function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      delete (window as unknown as { lenis?: Lenis }).lenis;
       lenis.destroy();
     };
   }, []);

@@ -4,6 +4,7 @@ import Statement from "@/components/Statement";
 import WhyVitalyzer from "@/components/WhyVitalyzer";
 import Testimonials from "@/components/Testimonials";
 import WorksWith from "@/components/WorksWith";
+import Capabilities from "@/components/Capabilities";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <WhyVitalyzer />
         <Testimonials />
         <WorksWith />
+        <Capabilities />
       </main>
     </>
   );

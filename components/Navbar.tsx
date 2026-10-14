@@ -140,15 +140,11 @@ export default function Navbar() {
 
           {/* Mobile menu */}
           <Sheet>
-            <SheetTrigger >
-              <Button
-                variant="outline"
-                size="icon"
-                className="size-[38px] rounded-[9px] bg-transparent md:hidden"
-                aria-label="Open menu"
-              >
-                <Menu className="size-4" />
-              </Button>
+            <SheetTrigger
+              className="size-[38px] rounded-[9px] bg-transparent md:hidden"
+              aria-label="Open menu"
+            >
+              <Menu className="size-4" />
             </SheetTrigger>
             <SheetContent
               side="right"
