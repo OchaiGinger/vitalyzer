@@ -23,7 +23,7 @@ const pages = [
   { href: "#about", label: "About", desc: "Why we built a health app that explains itself." },
   { href: "#team", label: "Team", desc: "The engineers, clinicians and designers behind the read." },
   { href: "#", label: "Careers", desc: "A small team doing careful work. See open roles." },
-  { href: "#", label: "Contact", desc: "Write to us and a person replies." },
+  { href: "#contact", label: "Contact", desc: "Write to us and a person replies." },
 ];
 
 const stories = [
@@ -128,23 +128,28 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2.5">
           <Button
-            className="group hidden h-auto gap-3 rounded-lg bg-primary px-[5px] py-[5px] text-sm font-semibold text-primary-foreground shadow-[0_0_0_1px_transparent] transition-all hover:bg-[#f0a84f] hover:shadow-[0_0_0_1px_var(--primary)] md:inline-flex"
+            
+            className="hidden h-auto gap-3 rounded-lg py-[5px] pl-3.5 pr-[5px] text-sm font-semibold md:inline-flex"
           >
-            <Link href="#pricing" className="flex items-center gap-3 pl-3.5">
+            <Link href="#pricing">
               Get started
-              <span className="grid size-7 place-items-center rounded-md bg-background/20 transition-colors group-hover:bg-background/30">
-                <ArrowRight className="size-3.5" aria-hidden="true" />
+              <span className="grid size-7 place-items-center rounded-md bg-background">
+                <ArrowRight className="size-3.5 text-foreground" aria-hidden="true" />
               </span>
             </Link>
           </Button>
 
           {/* Mobile menu */}
           <Sheet>
-            <SheetTrigger
-              className="size-[38px] rounded-[9px] bg-transparent md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="size-4" />
+            <SheetTrigger >
+              <Button
+                variant="outline"
+                size="icon"
+                className="size-[38px] rounded-[9px] bg-transparent md:hidden"
+                aria-label="Open menu"
+              >
+                <Menu className="size-4" />
+              </Button>
             </SheetTrigger>
             <SheetContent
               side="right"
@@ -224,6 +229,7 @@ export default function Navbar() {
                       key={s.title}
                       href={s.href}
                       onClick={() => setOpen(false)}
+                      data-cursor="media"
                       className="group relative flex aspect-[4/3.1] flex-col justify-end overflow-hidden rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/50"
                     >
                       <div className="absolute inset-0" style={gridStyle} aria-hidden="true" />

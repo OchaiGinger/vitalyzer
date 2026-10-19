@@ -13,7 +13,7 @@ const TEAM: Member[] = [
   { name: "Chukwuemeka Obi", role: "CTO & Lead Developer", photo: "/team/member-2.png" },
   { name: "Kwame Mensa", role: "Machine Learning Engineer", photo: "/team/member-3.png" },
   { name: "Aminala Diallo", role: "Head of Product and Design ", photo: "/team/member-4.png" },
-  { name: "Dr. Folake Adyinka", role: "Clinical partnerships & Compliance Lead", photo: "/team/member-5.png" },
+  { name: "Dr. Folake Adeyinka", role: "Clinical partnerships & Compliance Lead", photo: "/team/member-5.png" },
 ];
 
 /* ---------- Pixelate + dither helpers ---------- */

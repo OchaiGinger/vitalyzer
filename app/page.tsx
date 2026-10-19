@@ -8,6 +8,7 @@ import Capabilities from "@/components/Capabilities";
 import Performance from "@/components/Performance";
 import Stats from "@/components/Stats";
 import Team from "@/components/Team";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <Performance />
         <Stats />
         <Team />
+        <Contact />
       </main>
       <Footer />
     </>
