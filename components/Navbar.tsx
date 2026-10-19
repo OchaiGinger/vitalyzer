@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -52,14 +51,35 @@ const gridStyle: React.CSSProperties = {
 const linkClass =
   "flex items-center gap-1.5 py-2 text-[15.5px] font-medium transition-colors hover:text-primary";
 
+function Logo({ className = "", onClick }: { className?: string; onClick?: () => void }) {
+  return (
+    <Link
+      href="#top"
+      onClick={onClick}
+      aria-label="Vitalyzer home"
+      className={`flex items-center gap-3 font-serif text-[23px] leading-none tracking-[-.03em] sm:text-[26px] ${className}`}
+    >
+      <span className="grid size-[34px] shrink-0 place-items-center rounded-[9px] border border-border bg-card">
+        <svg viewBox="0 0 60 52" className="h-auto w-[17px]" aria-hidden="true">
+          <path d="M0 0H18L30 26V52Z" fill="#e9a23b" />
+          <path d="M60 0H42L30 26V52Z" fill="#f2bd6a" />
+        </svg>
+      </span>
+      vitalyzer
+    </Link>
+  );
+}
+
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // desktop Company panel
+  const [menuOpen, setMenuOpen] = useState(false); // mobile / tablet menu
   const hovered = useRef(false);
 
-  const mouseOnly =
-    (fn: () => void) => (e: React.PointerEvent) => {
-      if (e.pointerType === "mouse") fn();
-    };
+  const closeMenu = () => setMenuOpen(false);
+
+  const mouseOnly = (fn: () => void) => (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") fn();
+  };
 
   return (
     <header
@@ -76,25 +96,13 @@ export default function Navbar() {
       }`}
     >
       {/* Top bar */}
-      <div className="relative flex h-[54px] items-center justify-between pl-2 pr-3.5">
-        <Link
-          href="#top"
-          aria-label="Vitalyzer home"
-          className="flex items-center gap-3 font-serif text-[24px] leading-none tracking-[-.03em] sm:text-[26px]"
-        >
-          <span className="grid size-[34px] place-items-center rounded-[9px] border border-border bg-card">
-            <svg viewBox="0 0 60 52" className="h-auto w-[17px]" aria-hidden="true">
-              <path d="M0 0H18L30 26V52Z" fill="#e9a23b" />
-              <path d="M60 0H42L30 26V52Z" fill="#f2bd6a" />
-            </svg>
-          </span>
-          vitalyzer
-        </Link>
+      <div className="relative flex h-[54px] items-center justify-between gap-3 pl-2 pr-2 lg:pr-3.5">
+        <Logo className="shrink-0" />
 
-        {/* Desktop links */}
+        {/* Desktop links (lg and up) */}
         <nav
           aria-label="Primary"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex lg:gap-11"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-11 lg:flex"
         >
           {links.map((l) => (
             <Link
@@ -126,71 +134,103 @@ export default function Navbar() {
           </button>
         </nav>
 
-        <div className="flex items-center gap-2.5">
-          <Button
-            
-            className="hidden h-auto gap-3 rounded-lg py-[5px] pl-3.5 pr-[5px] text-sm font-semibold md:inline-flex"
+        <div className="flex shrink-0 items-center gap-2">
+          {/* Get started: desktop only. On mobile the bar is just the menu button. */}
+          <Link
+            href="#pricing"
+            className="hidden items-center gap-3 whitespace-nowrap rounded-lg bg-primary py-[5px] pl-3.5 pr-[5px] text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 lg:inline-flex"
           >
-            <Link href="#pricing">
-              Get started
-              <span className="grid size-7 place-items-center rounded-md bg-background">
-                <ArrowRight className="size-3.5 text-foreground" aria-hidden="true" />
-              </span>
-            </Link>
-          </Button>
+            Get started
+            <span className="grid size-7 shrink-0 place-items-center rounded-md bg-background">
+              <ArrowRight className="size-3.5 text-foreground" aria-hidden="true" />
+            </span>
+          </Link>
 
-          {/* Mobile menu */}
-          <Sheet>
-            <SheetTrigger >
-              <Button
-                variant="outline"
-                size="icon"
-                className="size-[38px] rounded-[9px] bg-transparent md:hidden"
-                aria-label="Open menu"
-              >
-                <Menu className="size-4" />
-              </Button>
+          {/* Mobile and tablet menu */}
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+            <SheetTrigger
+              aria-label="Open menu"
+              className="grid size-[38px] place-items-center rounded-[9px] border border-border transition-colors hover:bg-foreground/10 lg:hidden"
+            >
+              <Menu className="size-[18px]" aria-hidden="true" />
             </SheetTrigger>
+
             <SheetContent
               side="right"
               data-lenis-prevent
-              className="w-[min(320px,86vw)] border-border bg-popover p-0"
+              className="flex w-[min(400px,100vw)]! max-w-none! flex-col gap-0 border-border bg-popover p-0"
             >
               <SheetTitle className="sr-only">Menu</SheetTitle>
-              <nav aria-label="Mobile" className="mt-14 flex flex-col px-3">
-                {links.map((l) => (
-                  <SheetClose  key={l.label}>
-                    <Link href={l.href} className="border-b border-border px-3 py-3.5 text-base">
-                      {l.label}
-                    </Link>
-                  </SheetClose>
-                ))}
-                <p className="px-3 pb-1 pt-5 text-xs tracking-wide text-muted-foreground">Company</p>
-                {pages.map((p) => (
-                  <SheetClose  key={p.label}>
-                    <Link
-                      href={p.href}
-                      className="border-b border-border px-3 py-3.5 text-[15px] text-[#cfc4b0]"
-                    >
-                      {p.label}
-                    </Link>
-                  </SheetClose>
-                ))}
-                <SheetClose >
-                  <Link href="#pricing" className="px-3 py-4 text-base font-semibold text-primary">
-                    Get started
-                  </Link>
-                </SheetClose>
+              <SheetDescription className="sr-only">Site navigation</SheetDescription>
+
+              {/* Header (leaves room for the built-in close button) */}
+              <div className="flex h-[70px] shrink-0 items-center border-b border-border pl-5 pr-16">
+                <Logo onClick={closeMenu} />
+              </div>
+
+              {/* Links */}
+              <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 pb-6 pt-2">
+                <ul>
+                  {links.map((l) => (
+                    <li key={l.label}>
+                      <Link
+                        href={l.href}
+                        onClick={closeMenu}
+                        className="group flex items-center justify-between border-b border-border py-5 font-display text-[clamp(26px,7.5vw,32px)] leading-none tracking-[-.03em] text-[#F3F1EC]"
+                      >
+                        {l.label}
+                        <ArrowRight
+                          className="size-5 shrink-0 text-muted-foreground transition-transform group-active:translate-x-1"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mb-3 mt-8 text-[11px] uppercase tracking-[.2em] text-muted-foreground">
+                  Company
+                </p>
+                <ul className="grid grid-cols-2 gap-3">
+                  {pages.map((p) => (
+                    <li key={p.label}>
+                      <Link
+                        href={p.href}
+                        onClick={closeMenu}
+                        className="block rounded-xl border border-border px-4 py-3.5 text-[15px] transition-colors active:bg-foreground/10"
+                      >
+                        {p.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </nav>
+
+              {/* Get started: full width, thumb-friendly, clear of the iPhone home bar */}
+              <div className="shrink-0 border-t border-border p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+                <Link
+                  href="#pricing"
+                  onClick={closeMenu}
+                  className="flex h-14 w-full items-center justify-between whitespace-nowrap rounded-xl bg-primary pl-5 pr-2 text-base font-semibold text-primary-foreground transition-colors active:bg-primary/90"
+                >
+                  Get started
+                  <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-background">
+                    <ArrowRight className="size-[18px] text-foreground" aria-hidden="true" />
+                  </span>
+                </Link>
+                <p className="mt-4 text-center text-xs text-muted-foreground">
+                  Questions? support@vitalyzer.com
+                </p>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
 
-      {/* Company panel (md and up). Expands the navbar itself, like the reference. */}
+      {/* Company panel (lg and up). Expands the navbar itself, like the reference. */}
       <div
         id="company-menu"
-        className={`hidden grid-rows-[0fr] transition-[grid-template-rows,visibility] duration-300 ease-out md:grid ${
+        className={`hidden grid-rows-[0fr] transition-[grid-template-rows,visibility] duration-300 ease-out lg:grid ${
           open ? "visible grid-rows-[1fr]" : "invisible"
         }`}
       >
@@ -202,7 +242,7 @@ export default function Navbar() {
                 <p className="mb-6 flex items-center gap-2 text-xs tracking-[.14em] text-muted-foreground before:size-[5px] before:bg-primary">
                   Pages
                 </p>
-                <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-1 lg:gap-y-6">
+                <ul className="grid gap-y-6">
                   {pages.map((p) => (
                     <li key={p.label}>
                       <Link href={p.href} onClick={() => setOpen(false)} className="group block">
@@ -218,8 +258,8 @@ export default function Navbar() {
                 </ul>
               </div>
 
-              {/* Journal cards (lg and up) */}
-              <div className="hidden lg:block">
+              {/* Journal cards */}
+              <div>
                 <p className="mb-6 flex items-center gap-2 text-xs tracking-[.14em] text-muted-foreground before:size-[5px] before:bg-primary">
                   From the journal
                 </p>
