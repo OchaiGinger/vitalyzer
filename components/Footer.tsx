@@ -101,8 +101,8 @@ export default function Footer() {
             <div className="col-span-2 lg:col-span-1">
               <h3 className="font-mono text-xs uppercase tracking-[.14em]">Support</h3>
               <ul className="mt-8 space-y-3 font-mono text-sm">
-                <li>hello@vitalyzer.com</li>
-                <li>support@vitalyzer.com</li>
+                <li>emmanuel@vitalyzer.org</li>
+                <li>support@vitalyzer.org</li>
                 <li className="flex items-center gap-2 pt-1 text-xs uppercase tracking-[.14em] before:size-[6px] before:animate-pulse before:bg-[#141414] motion-reduce:before:animate-none">
                   All systems operational
                 </li>
