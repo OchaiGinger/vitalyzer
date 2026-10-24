@@ -10,9 +10,8 @@ import Eyebrow from "./Eyebrow";
 const TYPES = ["Support", "Partnerships", "Press", "Everything else"];
 
 const DETAILS: [label: string, value: string, href?: string][] = [
-  ["Support", "support@vitalyzer.com", "mailto:support@vitalyzer.com"],
-  ["Partnerships", "partners@vitalyzer.com", "mailto:partners@vitalyzer.com"],
-  ["Press", "press@vitalyzer.com", "mailto:press@vitalyzer.com"],
+  ["Support", "support@vitalyzer.org", "mailto:support@vitalyzer.org"],
+  ["Partnerships", "emmanuel@vitalyzer.org", "mailto:emmanuel@vitalyzer.org"],
   ["Reply time", "Within 1 business day"],
 ];
 
